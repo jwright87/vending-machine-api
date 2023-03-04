@@ -1,0 +1,38 @@
+{
+  "drinks": [
+    {
+      "name": "Coke",
+      "cost": 65
+    },
+    {
+      "name": "Pepsi",
+      "cost": 60
+    },
+    {
+      "name": "Lemonade",
+      "cost": 55
+    }
+  ],
+  "coins": [
+    {
+      "name": "FIVE_PENCE",
+      "value": 5
+    },
+    {
+      "name": "TEN_PENCE",
+      "value": 10
+    },
+    {
+      "name": "TWENTY_PENCE",
+      "value": 20
+    },
+    {
+      "name": "FIFTY_PENCE",
+      "value": 50
+    },
+    {
+      "name": "ONE_POUND",
+      "value": 100
+    }
+  ]
+}

@@ -1,11 +1,10 @@
 package com.ondeviceresearch.vendingmachineapi.coins;
 
 import com.ondeviceresearch.vendingmachineapi.TestUtils;
-import com.ondeviceresearch.vendingmachineapi.coins.model.CoinInsertRequest;
 import com.ondeviceresearch.vendingmachineapi.coins.model.CoinList;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CoinsControllerTest {
 
@@ -16,9 +15,8 @@ class CoinsControllerTest {
 
     @Test
     void shouldReturnSuccessfulResponseWhenCoinInsertMessageSent() {
-        var response = coinsController.insertCoin(new CoinInsertRequest(TestUtils.TEN_PENCE));
-        assertThat(response.getStatusCode().value()).isEqualTo(response.getBody().getStatusCode());
-        assertThat(response.getBody().getStatusCode()).isEqualTo(200);
+        var response = coinsController.insertCoin(TestUtils.TEN_PENCE);
+        assertThat(response.getStatusCode().value()).isEqualTo(200);
         assertThat(response.getBody().getMessage()).isEqualTo("10 pence added to balance");
     }
 

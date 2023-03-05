@@ -1,6 +1,6 @@
 package com.ondeviceresearch.vendingmachineapi.datastore;
 
-import com.ondeviceresearch.vendingmachineapi.VisiableForTesting;
+import com.ondeviceresearch.vendingmachineapi.VisibleForTesting;
 import com.ondeviceresearch.vendingmachineapi.config.VendingMachineConfig;
 import com.ondeviceresearch.vendingmachineapi.coins.model.Coin;
 import com.ondeviceresearch.vendingmachineapi.drinks.model.Drink;
@@ -39,19 +39,19 @@ public class VendingMachineDataStore {
 
     }
 
-    @VisiableForTesting
+    @VisibleForTesting
     int coinsAvailable(Coin coin) {
         return coinStore.get(coin);
     }
 
 
-    private int drinksAvailable(Drink drink) {
+    public int drinkStockCount(Drink drink) {
         return drinkStore.get(drink);
     }
 
 
     public boolean isInStock(Drink drink) {
-        return drinksAvailable(drink) > 0;
+        return drinkStockCount(drink) > 0;
     }
 
 
@@ -63,7 +63,7 @@ public class VendingMachineDataStore {
         if (!isInStock(drink)) {
             throw new OutOfStockException(drink.name() + " is out of stock");
         }
-        decreeaseDrinkCount(drink);
+        decreaseCount(drink);
         return drinkStore.get(drink);
     }
 
@@ -76,23 +76,25 @@ public class VendingMachineDataStore {
         coinStore.put(coin, coinStore.get(coin) + 1);
     }
 
-    public Coin removeCoin(Coin coin) {
-        removeCoins(coin, 1);
+    public Coin fetchCoin(Coin coin) {
+        fetchCoins(coin, 1);
         return coin;
     }
 
-    public void removeCoins(Coin coin, int number) {
+    public void fetchCoins(Coin coin, int number) {
         if (coinsAvailable(coin) < number) {
-            throw new ChangeUnavailableException();
+            throw new ChangeUnavailableException("Cannot remove %d %s  coins as only %d in store"
+                    .formatted(number, coin.name(), coinStore.get(coin)));
         }
-        decreaseCoinCount(coin, number);
+        decreaseCount(coin, number);
     }
 
-    private void decreaseCoinCount(Coin coin, int number) {
+
+    private void decreaseCount(Coin coin, int number) {
         coinStore.put(coin, coinStore.get(coin) - number);
     }
 
-    private void decreeaseDrinkCount(Drink drink) {
+    private void decreaseCount(Drink drink) {
         drinkStore.put(drink, drinkStore.get(drink) - 1);
     }
 

@@ -18,6 +18,6 @@ public class AdminController {
     @GetMapping("/reset")
     public ResponseEntity<ApiResponse> reset() {
         dataStore.reset();
-        return ResponseEntity.ok(new AdminResetResponse(200, "Drink Stock / Coins reset to initial values"));
+        return ResponseEntity.ok(new AdminResetResponse("Drink Stock / Coins reset to initial values"));
     }
 }

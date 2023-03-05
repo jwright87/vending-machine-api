@@ -21,7 +21,7 @@ public class VendingMachineApiApplication {
     }
 
     @Bean
-    public CoinList balance() {
+    public CoinList coinsInserted() {
         return new CoinList();
     }
 }

@@ -5,6 +5,7 @@ import com.ondeviceresearch.vendingmachineapi.coins.model.Coin;
 import com.ondeviceresearch.vendingmachineapi.coins.model.CoinList;
 import com.ondeviceresearch.vendingmachineapi.config.VendingMachineConfig;
 import com.ondeviceresearch.vendingmachineapi.datastore.VendingMachineDataStore;
+import com.ondeviceresearch.vendingmachineapi.drinks.DrinksService;
 import com.ondeviceresearch.vendingmachineapi.drinks.model.Drink;
 
 /**
@@ -33,5 +34,10 @@ public class TestUtils {
 
     public static CoinService coinService() {
         return new CoinService(vendingMachineDataStore(), new CoinList());
+    }
+
+    public static DrinksService drinksService() {
+        return new DrinksService(vendingMachineDataStore(), config(), coinService());
+
     }
 }

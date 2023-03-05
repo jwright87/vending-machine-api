@@ -59,8 +59,8 @@ class CoinServiceTest {
 
     @Test
     void shouldOnlyUseCoinsInDataStoreWhenRetrievingChange() {
-        dataStore.removeCoins(TestUtils.TWENTY_PENCE, 4);
-        dataStore.removeCoins(TestUtils.TEN_PENCE, 4);
+        dataStore.fetchCoins(TestUtils.TWENTY_PENCE, 4);
+        dataStore.fetchCoins(TestUtils.TEN_PENCE, 4);
 
         var change = coinService.retrieveChangeInCoins(40);
         assertThat(change).hasSize(4);
@@ -69,7 +69,7 @@ class CoinServiceTest {
 
     @Test
     void shouldFailToRetrieveChangeAsExactChangeImpossible() {
-       dataStore.removeCoins(TestUtils.FIVE_PENCE,5);
+       dataStore.fetchCoins(TestUtils.FIVE_PENCE,5);
 
         assertThrows(ChangeUnavailableException.class,() -> coinService.retrieveChangeInCoins(25));
 

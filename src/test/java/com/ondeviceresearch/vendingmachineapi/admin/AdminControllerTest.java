@@ -14,7 +14,6 @@ class AdminControllerTest {
     @Test
     void shouldReset() {
         var response = controller.reset();
-        assertThat(response.getBody().getStatusCode()).isEqualTo(200);
         assertThat(response.getStatusCode().value()).isEqualTo(200);
 
     }

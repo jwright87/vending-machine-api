@@ -79,13 +79,13 @@ class VendingMachineDataStoreTest {
     @Test
     void shouldRemoveCoin() {
         assertThat(dataStore.coinsAvailable(TestUtils.ONE_POUND)).isEqualTo(8);
-        dataStore.removeCoin(TestUtils.ONE_POUND);
+        dataStore.fetchCoin(TestUtils.ONE_POUND);
         assertThat(dataStore.coinsAvailable(TestUtils.ONE_POUND)).isEqualTo(7);
     }
 
     @Test
     void shouldFailToRemoveCoin() {
-        assertThrows(ChangeUnavailableException.class,() -> dataStore.removeCoin(TestUtils.FIVE_PENCE));
+        assertThrows(ChangeUnavailableException.class,() -> dataStore.fetchCoin(TestUtils.FIVE_PENCE));
     }
 
 

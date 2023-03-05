@@ -5,27 +5,21 @@ import com.ondeviceresearch.vendingmachineapi.model.ApiResponse;
 import lombok.Data;
 
 @Data
-public class DrinkPurchaseResponse  implements ApiResponse {
+public class DrinkPurchaseResponse implements ApiResponse {
 
 
     private Drink drink;
 
     private CoinList coinList;
-    private int statusCode;
+
 
     private String message;
 
 
-    public DrinkPurchaseResponse(Drink drink, CoinList coinList, int statusCode, String message) {
+    public DrinkPurchaseResponse(Drink drink, CoinList coinList, String message) {
         this.drink = drink;
         this.coinList = coinList;
-        this.statusCode = statusCode;
         this.message = message;
-    }
-
-    @Override
-    public int getStatusCode() {
-        return statusCode;
     }
 
     @Override

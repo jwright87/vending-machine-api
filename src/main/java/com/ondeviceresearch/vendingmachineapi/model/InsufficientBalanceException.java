@@ -1,6 +1,6 @@
 package com.ondeviceresearch.vendingmachineapi.model;
 
-public class InsufficientBalanceException extends RuntimeException {
+public class InsufficientBalanceException extends ClientException {
 
 
     public InsufficientBalanceException(String message) {

@@ -3,7 +3,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.4'
     id 'io.spring.dependency-management' version '1.1.0'
-//    id 'org.asciidoctor.convert' //version '2.2.1'
 }
 
 group = 'com.ondeviceresearch'
@@ -14,6 +13,20 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+}
+
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+        compileClasspath += sourceSets.test.output
+        runtimeClasspath += sourceSets.test.output
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom implementation
+    integrationTestRuntimeOnly.extendsFrom runtimeOnly
 }
 
 repositories {
@@ -27,6 +40,7 @@ ext {
 dependencies {
     implementation 'commons-io:commons-io:2.11.0'
 
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -34,6 +48,13 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    integrationTestImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+    integrationTestImplementation 'org.assertj:assertj-core:3.23.1'
+    integrationTestImplementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    integrationTestImplementation files('libs/hwan-0.1.1.jar')
+    integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+
 }
 
 tasks.named('test') {
@@ -41,7 +62,3 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-//tasks.named('asciidoctor') {
-//    inputs.dir snippetsDir
-//    dependsOn test
-//}

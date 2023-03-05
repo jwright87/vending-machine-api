@@ -53,7 +53,7 @@ public class CoinService {
             while (i < availableCoinType.getValue()) {
 
                 if (changeStillNeeded(changeValueInPence, change) >= coinValueInPence(availableCoinType)) {
-                    change.add(dataStore.removeCoin(availableCoinType.getKey()));
+                    change.add(dataStore.fetchCoin(availableCoinType.getKey()));
                 }
 
                 if (changeFound(changeValueInPence, change)) {

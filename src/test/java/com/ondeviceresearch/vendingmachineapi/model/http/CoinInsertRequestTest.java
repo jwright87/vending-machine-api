@@ -25,14 +25,14 @@ class CoinInsertRequestTest {
         }
 
         assertThat(json).isEqualTo("""
-                {"coin":{"name":"TWENTY_PENCE","value":20}}""");
+                {"coin":{"name":"TWENTY_PENCE","valueInPence":20}}""");
 
     }
 
     @Test
     void shouldMapFromJson() {
         var json = """
-                {"coin":{"name":"ONE_POUND","value":100}}""";
+                {"coin":{"name":"ONE_POUND","valueInPence":100}}""";
 
         CoinInsertRequest coinInsertRequest = null;
         try {

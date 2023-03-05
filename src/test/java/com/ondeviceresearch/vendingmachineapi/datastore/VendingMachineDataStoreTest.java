@@ -15,34 +15,34 @@ class VendingMachineDataStoreTest {
     @BeforeEach
     void setup() {
         dataStore = new VendingMachineDataStore(ConfigData.createFromConfigFile());
-        dataStore.getDrinks().put(TestValues.COKE,1);
-        dataStore.getDrinks().put(TestValues.PEPSI,0);
-        dataStore.getDrinks().put(TestValues.LEMONADE,4);
+        dataStore.getDrinkStore().put(TestValues.COKE,1);
+        dataStore.getDrinkStore().put(TestValues.PEPSI,0);
+        dataStore.getDrinkStore().put(TestValues.LEMONADE,4);
 
-        dataStore.getCoins().put(TestValues.FIVE_PENCE,0);
-        dataStore.getCoins().put(TestValues.TEN_PENCE,1);
-        dataStore.getCoins().put(TestValues.TWENTY_PENCE,7);
-        dataStore.getCoins().put(TestValues.FIFTY_PENCE,3);
-        dataStore.getCoins().put(TestValues.ONE_POUND,8);
+        dataStore.getCoinStore().put(TestValues.FIVE_PENCE,0);
+        dataStore.getCoinStore().put(TestValues.TEN_PENCE,1);
+        dataStore.getCoinStore().put(TestValues.TWENTY_PENCE,7);
+        dataStore.getCoinStore().put(TestValues.FIFTY_PENCE,3);
+        dataStore.getCoinStore().put(TestValues.ONE_POUND,8);
     }
 
 
     @Test
     void shouldResetDrinks() {
         dataStore.reset();
-        assertThat(dataStore.getDrinks().get(TestValues.COKE)).isEqualTo(5);
-        assertThat(dataStore.getDrinks().get(TestValues.PEPSI)).isEqualTo(5);
-        assertThat(dataStore.getDrinks().get(TestValues.LEMONADE)).isEqualTo(5);
+        assertThat(dataStore.getDrinkStore().get(TestValues.COKE)).isEqualTo(5);
+        assertThat(dataStore.getDrinkStore().get(TestValues.PEPSI)).isEqualTo(5);
+        assertThat(dataStore.getDrinkStore().get(TestValues.LEMONADE)).isEqualTo(5);
     }
 
     @Test
     void shouldResetCoins() {
         dataStore.reset();
-        assertThat(dataStore.getCoins().get(TestValues.FIVE_PENCE)).isEqualTo(5);
-        assertThat(dataStore.getCoins().get(TestValues.TEN_PENCE)).isEqualTo(5);
-        assertThat(dataStore.getCoins().get(TestValues.TWENTY_PENCE)).isEqualTo(5);
-        assertThat(dataStore.getCoins().get(TestValues.FIFTY_PENCE)).isEqualTo(5);
-        assertThat(dataStore.getCoins().get(TestValues.ONE_POUND)).isEqualTo(5);
+        assertThat(dataStore.getCoinStore().get(TestValues.FIVE_PENCE)).isEqualTo(5);
+        assertThat(dataStore.getCoinStore().get(TestValues.TEN_PENCE)).isEqualTo(5);
+        assertThat(dataStore.getCoinStore().get(TestValues.TWENTY_PENCE)).isEqualTo(5);
+        assertThat(dataStore.getCoinStore().get(TestValues.FIFTY_PENCE)).isEqualTo(5);
+        assertThat(dataStore.getCoinStore().get(TestValues.ONE_POUND)).isEqualTo(5);
     }
 
     @Test

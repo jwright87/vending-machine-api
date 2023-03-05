@@ -4,7 +4,7 @@ import com.ondeviceresearch.vendingmachineapi.model.basic.Coin;
 import com.ondeviceresearch.vendingmachineapi.model.basic.Drink;
 
 /**
- * Convenience static value for testing
+ * Convenience static valueInPence for testing
  */
 public class TestValues {
 

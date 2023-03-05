@@ -3,6 +3,7 @@ package com.ondeviceresearch.vendingmachineapi.datastore;
 import com.ondeviceresearch.vendingmachineapi.config.ConfigData;
 import com.ondeviceresearch.vendingmachineapi.model.basic.Coin;
 import com.ondeviceresearch.vendingmachineapi.model.basic.Drink;
+import com.ondeviceresearch.vendingmachineapi.other.CoinList;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
@@ -10,15 +11,16 @@ import java.util.HashMap;
 
 @Repository
 @Getter
-class VendingMachineDataStore {
-    private HashMap<Drink, Integer> drinks = new HashMap<>();
+public class VendingMachineDataStore {
+    private HashMap<Drink, Integer> drinkStore = new HashMap<>();
 
-    private HashMap<Coin, Integer> coins = new HashMap<>();
+    private HashMap<Coin, Integer> coinStore = new HashMap<>();
     private ConfigData configData;
 
 
     public VendingMachineDataStore(ConfigData configData) {
         this.configData = configData;
+        reset();
     }
 
 
@@ -26,21 +28,21 @@ class VendingMachineDataStore {
      * Resets the data store to original requirement limits;
      */
     public void reset() {
-        drinks.clear();
-        configData.getDrinks().forEach(drink -> drinks.put(drink, 5));
+        drinkStore.clear();
+        configData.getDrinks().forEach(drink -> drinkStore.put(drink, 5));
 
-        coins.clear();
-        configData.getCoins().forEach(coin -> coins.put(coin, 5));
+        coinStore.clear();
+        configData.getCoins().forEach(coin -> coinStore.put(coin, 5));
 
     }
 
     int coinsAvailable(Coin coin) {
-        return coins.get(coin);
+        return coinStore.get(coin);
     }
 
 
     int drinksAvailable(Drink drink) {
-        return drinks.get(drink);
+        return drinkStore.get(drink);
     }
 
 
@@ -58,14 +60,24 @@ class VendingMachineDataStore {
             throw new OutOfStockException(drink.name() + " is out of stock");
         }
         decreeaseDrinkCount(drink);
-        return drinks.get(drink);
+        return drinkStore.get(drink);
     }
 
-    void removeCoin(Coin coin) {
+
+    public void addCoins(CoinList coins) {
+        coins.forEach(coin -> addCoin(coin));
+    }
+
+    private void addCoin(Coin coin) {
+        coinStore.put(coin, coinStore.get(coin) + 1);
+    }
+
+    public Coin removeCoin(Coin coin) {
         removeCoins(coin, 1);
+        return coin;
     }
 
-    void removeCoins(Coin coin, int number) {
+    public void removeCoins(Coin coin, int number) {
         if (coinsAvailable(coin) < number) {
             throw new ChangeUnavailableException();
         }
@@ -73,11 +85,11 @@ class VendingMachineDataStore {
     }
 
     private void decreaseCoinCount(Coin coin, int number) {
-        coins.put(coin, coins.get(coin) - number);
+        coinStore.put(coin, coinStore.get(coin) - number);
     }
 
     private void decreeaseDrinkCount(Drink drink) {
-        drinks.put(drink, drinks.get(drink) - 1);
+        drinkStore.put(drink, drinkStore.get(drink) - 1);
     }
 
 }

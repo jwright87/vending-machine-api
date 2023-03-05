@@ -16,23 +16,23 @@
   "coins": [
     {
       "name": "FIVE_PENCE",
-      "value": 5
+      "valueInPence": 5
     },
     {
       "name": "TEN_PENCE",
-      "value": 10
+      "valueInPence": 10
     },
     {
       "name": "TWENTY_PENCE",
-      "value": 20
+      "valueInPence": 20
     },
     {
       "name": "FIFTY_PENCE",
-      "value": 50
+      "valueInPence": 50
     },
     {
       "name": "ONE_POUND",
-      "value": 100
+      "valueInPence": 100
     }
   ]
 }

@@ -1,6 +1,7 @@
 package com.ondeviceresearch.vendingmachineapi;
 
-import com.ondeviceresearch.vendingmachineapi.config.ConfigData;
+import com.ondeviceresearch.vendingmachineapi.config.VendingMachineConfig;
+import com.ondeviceresearch.vendingmachineapi.coins.model.CoinList;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +16,12 @@ public class VendingMachineApiApplication {
 
 
     @Bean
-    public ConfigData configData() {
-        return ConfigData.createFromConfigFile();
+    public VendingMachineConfig configData() {
+        return VendingMachineConfig.createFromConfigFile();
     }
 
+    @Bean
+    public CoinList coinsInserted() {
+        return new CoinList();
+    }
 }

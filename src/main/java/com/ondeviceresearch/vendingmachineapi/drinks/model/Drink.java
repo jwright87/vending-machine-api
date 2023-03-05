@@ -1,4 +1,4 @@
-package com.ondeviceresearch.vendingmachineapi.model.basic;
+package com.ondeviceresearch.vendingmachineapi.drinks.model;
 
 import lombok.Data;
 

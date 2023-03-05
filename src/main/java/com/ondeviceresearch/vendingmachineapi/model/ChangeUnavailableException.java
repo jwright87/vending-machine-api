@@ -1,4 +1,4 @@
-package com.ondeviceresearch.vendingmachineapi.datastore;
+package com.ondeviceresearch.vendingmachineapi.model;
 
 public class ChangeUnavailableException extends RuntimeException {
 

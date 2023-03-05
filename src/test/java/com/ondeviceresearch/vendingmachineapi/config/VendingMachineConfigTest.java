@@ -1,21 +1,21 @@
 package com.ondeviceresearch.vendingmachineapi.config;
 
-import com.ondeviceresearch.vendingmachineapi.model.basic.Coin;
-import com.ondeviceresearch.vendingmachineapi.model.basic.Drink;
+import com.ondeviceresearch.vendingmachineapi.coins.model.Coin;
+import com.ondeviceresearch.vendingmachineapi.drinks.model.Drink;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ConfigDataTest {
+class VendingMachineConfigTest {
 
 
-    private ConfigData dataModel;
+    private VendingMachineConfig dataModel;
 
 
     @BeforeEach
     void setup() {
-        dataModel = ConfigData.createFromConfigFile();
+        dataModel = VendingMachineConfig.createFromConfigFile();
     }
 
     @Test

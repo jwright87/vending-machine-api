@@ -1,9 +1,12 @@
 package com.ondeviceresearch.vendingmachineapi.datastore;
 
-import com.ondeviceresearch.vendingmachineapi.config.ConfigData;
-import com.ondeviceresearch.vendingmachineapi.model.basic.Coin;
-import com.ondeviceresearch.vendingmachineapi.model.basic.Drink;
-import com.ondeviceresearch.vendingmachineapi.other.CoinList;
+import com.ondeviceresearch.vendingmachineapi.VisiableForTesting;
+import com.ondeviceresearch.vendingmachineapi.config.VendingMachineConfig;
+import com.ondeviceresearch.vendingmachineapi.coins.model.Coin;
+import com.ondeviceresearch.vendingmachineapi.drinks.model.Drink;
+import com.ondeviceresearch.vendingmachineapi.coins.model.CoinList;
+import com.ondeviceresearch.vendingmachineapi.model.ChangeUnavailableException;
+import com.ondeviceresearch.vendingmachineapi.model.OutOfStockException;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
@@ -15,11 +18,11 @@ public class VendingMachineDataStore {
     private HashMap<Drink, Integer> drinkStore = new HashMap<>();
 
     private HashMap<Coin, Integer> coinStore = new HashMap<>();
-    private ConfigData configData;
+    private VendingMachineConfig vendingMachineConfig;
 
 
-    public VendingMachineDataStore(ConfigData configData) {
-        this.configData = configData;
+    public VendingMachineDataStore(VendingMachineConfig vendingMachineConfig) {
+        this.vendingMachineConfig = vendingMachineConfig;
         reset();
     }
 
@@ -29,19 +32,20 @@ public class VendingMachineDataStore {
      */
     public void reset() {
         drinkStore.clear();
-        configData.getDrinks().forEach(drink -> drinkStore.put(drink, 5));
+        vendingMachineConfig.getDrinks().forEach(drink -> drinkStore.put(drink, 5));
 
         coinStore.clear();
-        configData.getCoins().forEach(coin -> coinStore.put(coin, 5));
+        vendingMachineConfig.getCoins().forEach(coin -> coinStore.put(coin, 5));
 
     }
 
+    @VisiableForTesting
     int coinsAvailable(Coin coin) {
         return coinStore.get(coin);
     }
 
 
-    int drinksAvailable(Drink drink) {
+    private int drinksAvailable(Drink drink) {
         return drinkStore.get(drink);
     }
 

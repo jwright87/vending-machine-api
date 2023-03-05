@@ -1,4 +1,4 @@
-package com.ondeviceresearch.vendingmachineapi.model.http;
+package com.ondeviceresearch.vendingmachineapi.model;
 
 public interface ApiResponse {
 

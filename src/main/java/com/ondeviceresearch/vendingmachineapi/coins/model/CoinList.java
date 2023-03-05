@@ -1,6 +1,4 @@
-package com.ondeviceresearch.vendingmachineapi.other;
-
-import com.ondeviceresearch.vendingmachineapi.model.basic.Coin;
+package com.ondeviceresearch.vendingmachineapi.coins.model;
 
 import java.util.ArrayList;
 

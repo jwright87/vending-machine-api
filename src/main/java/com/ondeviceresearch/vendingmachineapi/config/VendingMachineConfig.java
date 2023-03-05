@@ -2,8 +2,8 @@ package com.ondeviceresearch.vendingmachineapi.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ondeviceresearch.vendingmachineapi.model.basic.Coin;
-import com.ondeviceresearch.vendingmachineapi.model.basic.Drink;
+import com.ondeviceresearch.vendingmachineapi.coins.model.Coin;
+import com.ondeviceresearch.vendingmachineapi.drinks.model.Drink;
 import lombok.Data;
 import org.apache.commons.io.IOUtils;
 
@@ -12,21 +12,21 @@ import java.util.List;
 
 
 @Data
-public class ConfigData {
+public class VendingMachineConfig {
 
 
     private List<Coin> coins;
     private List<Drink> drinks;
 
-    private ConfigData() {
+    private VendingMachineConfig() {
     }
 
 
-    public static ConfigData createFromConfigFile() {
+    public static VendingMachineConfig createFromConfigFile() {
         try {
-            var classpathFileInputStream = ConfigData.class.getClassLoader().getResourceAsStream("static/config.json");
+            var classpathFileInputStream = VendingMachineConfig.class.getClassLoader().getResourceAsStream("static/config.json");
             var jsonData = IOUtils.toString(classpathFileInputStream);
-            return new ObjectMapper().readValue(jsonData, ConfigData.class);
+            return new ObjectMapper().readValue(jsonData, VendingMachineConfig.class);
         } catch (JsonProcessingException jpe) {
             throw new RuntimeException("Problem with config json", jpe);
         } catch (IOException e) {

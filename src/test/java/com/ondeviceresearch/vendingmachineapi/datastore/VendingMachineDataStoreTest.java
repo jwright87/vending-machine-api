@@ -1,6 +1,7 @@
 package com.ondeviceresearch.vendingmachineapi.datastore;
 
 import com.ondeviceresearch.vendingmachineapi.TestUtils;
+import com.ondeviceresearch.vendingmachineapi.coins.model.CoinList;
 import com.ondeviceresearch.vendingmachineapi.config.VendingMachineConfig;
 import com.ondeviceresearch.vendingmachineapi.model.ChangeUnavailableException;
 import com.ondeviceresearch.vendingmachineapi.model.OutOfStockException;
@@ -16,7 +17,7 @@ class VendingMachineDataStoreTest {
 
     @BeforeEach
     void setup() {
-        dataStore = new VendingMachineDataStore(VendingMachineConfig.createFromConfigFile());
+        dataStore = new VendingMachineDataStore(VendingMachineConfig.createFromConfigFile(),new CoinList());
         dataStore.getDrinkStore().put(TestUtils.COKE,1);
         dataStore.getDrinkStore().put(TestUtils.PEPSI,0);
         dataStore.getDrinkStore().put(TestUtils.LEMONADE,4);

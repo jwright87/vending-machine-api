@@ -2,8 +2,10 @@ package com.ondeviceresearch.vendingmachineapi.coins;
 
 import com.ondeviceresearch.vendingmachineapi.coins.model.Coin;
 import com.ondeviceresearch.vendingmachineapi.coins.model.CoinList;
+import com.ondeviceresearch.vendingmachineapi.config.VendingMachineConfig;
 import com.ondeviceresearch.vendingmachineapi.datastore.VendingMachineDataStore;
 import com.ondeviceresearch.vendingmachineapi.model.ChangeUnavailableException;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@AllArgsConstructor
 public class CoinService {
 
     private static final Logger log = LoggerFactory.getLogger(CoinService.class);
@@ -21,13 +24,17 @@ public class CoinService {
 
     private CoinList insertedCoins;
 
-    public CoinService(VendingMachineDataStore dataStore, CoinList insertedCoins) {
-        this.dataStore = dataStore;
-        this.insertedCoins = insertedCoins;
+    private VendingMachineConfig vendingMachineConfig;
+
+
+    public Coin insertCoin(Coin coin) {
+        coin = vendingMachineConfig.enrich(coin);
+        insertedCoins.add(coin);
+        return coin;
     }
 
-    public void insertCoin(Coin coin) {
-        insertedCoins.add(coin);
+    public CoinList getInsertedCoins() {
+        return insertedCoins;
     }
 
 
@@ -35,11 +42,20 @@ public class CoinService {
         return insertedCoins.sum();
     }
 
+    public void clearInsertedCoins() {
+        insertedCoins.clear();
+    }
+
+
     public CoinList refundCoins() {
         var refundedCoins = new CoinList();
         refundedCoins.addAll(insertedCoins);
         insertedCoins.clear();
         return refundedCoins;
+    }
+
+    public List<Coin> acceptedCoins() {
+        return vendingMachineConfig.getCoins();
     }
 
     public CoinList retrieveChangeInCoins(int changeValueInPence) {

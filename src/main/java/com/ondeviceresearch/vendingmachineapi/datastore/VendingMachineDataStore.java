@@ -20,9 +20,12 @@ public class VendingMachineDataStore {
     private HashMap<Coin, Integer> coinStore = new HashMap<>();
     private VendingMachineConfig vendingMachineConfig;
 
+    private CoinList insertedCoins;
 
-    public VendingMachineDataStore(VendingMachineConfig vendingMachineConfig) {
+
+    public VendingMachineDataStore(VendingMachineConfig vendingMachineConfig, CoinList insertedCoins) {
         this.vendingMachineConfig = vendingMachineConfig;
+        this.insertedCoins = insertedCoins;
         reset();
     }
 
@@ -37,6 +40,7 @@ public class VendingMachineDataStore {
         coinStore.clear();
         vendingMachineConfig.getCoins().forEach(coin -> coinStore.put(coin, 5));
 
+        insertedCoins.clear();
     }
 
     @VisibleForTesting

@@ -18,7 +18,17 @@ public class VendingMachineConfig {
     private List<Coin> coins;
     private List<Drink> drinks;
 
-    private VendingMachineConfig() {
+    public Coin enrich(Coin coin) {
+        return new Coin(coin.name(), coins.stream().filter(p -> p.name().equals(coin.name())).findFirst()
+                .orElseThrow().valueInPence());
+    }
+
+    public Drink enrich(Drink drink) {
+        return new Drink(drink.name(), drinks.stream().filter(p -> p.name().equals(drink.name()))
+                .findFirst().orElseThrow().cost());
+    }
+
+    VendingMachineConfig() {
     }
 
 
@@ -33,5 +43,6 @@ public class VendingMachineConfig {
             throw new RuntimeException("Unable to read data config file", e);
         }
     }
+
 
 }

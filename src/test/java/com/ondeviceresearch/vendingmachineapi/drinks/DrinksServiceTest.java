@@ -1,9 +1,9 @@
 package com.ondeviceresearch.vendingmachineapi.drinks;
 
 import com.ondeviceresearch.vendingmachineapi.TestUtils;
+import com.ondeviceresearch.vendingmachineapi.coins.CoinService;
 import com.ondeviceresearch.vendingmachineapi.coins.model.CoinList;
 import com.ondeviceresearch.vendingmachineapi.drinks.model.Drink;
-import com.ondeviceresearch.vendingmachineapi.drinks.model.DrinkStockData;
 import com.ondeviceresearch.vendingmachineapi.model.InsufficientBalanceException;
 import com.ondeviceresearch.vendingmachineapi.model.OutOfStockException;
 import org.junit.jupiter.api.Test;
@@ -16,17 +16,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class DrinksServiceTest {
 
 
-    private DrinksService drinksService = TestUtils.drinksService();
+    private CoinService coinService = TestUtils.coinService();
+    private DrinksService drinksService = TestUtils.drinksService(coinService);
 
 
     @Test
     void shouldReturnDrinkInformation() {
-        var drinkInfo = drinksService.drinkInformation();
+        var drinkInfo = drinksService.drinksInStock();
         assertThat(drinkInfo).hasSize(3);
         assertThat(drinkInfo).containsExactly(
-                new DrinkStockData(TestUtils.COKE, true),
-                new DrinkStockData(TestUtils.PEPSI, true),
-                new DrinkStockData(TestUtils.LEMONADE, true)
+                TestUtils.COKE,
+                TestUtils.PEPSI,
+                TestUtils.LEMONADE
         );
     }
 
@@ -35,12 +36,10 @@ class DrinksServiceTest {
     void shouldReturnDrinkInformationWithOutOfStock() {
         buyDrinks(TestUtils.COKE, 5);
         buyDrinks(TestUtils.LEMONADE, 5);
-        var drinkInfo = drinksService.drinkInformation();
-        assertThat(drinkInfo).hasSize(3);
+        var drinkInfo = drinksService.drinksInStock();
+        assertThat(drinkInfo).hasSize(1);
         assertThat(drinkInfo).containsExactly(
-                new DrinkStockData(TestUtils.COKE, false),
-                new DrinkStockData(TestUtils.PEPSI, true),
-                new DrinkStockData(TestUtils.LEMONADE, false)
+                TestUtils.PEPSI
         );
     }
 
@@ -49,9 +48,12 @@ class DrinksServiceTest {
 
         var coins = new CoinList();
         coins.add(TestUtils.ONE_POUND);
+        assertThat(coinService.insertedCoinsBalanceInPence()).isZero();
         var change = drinksService.purchaseDrink(TestUtils.COKE, coins);
         assertThat(change.sum()).isEqualTo(35);
         assertThat(drinksService.drinkStockCount(TestUtils.COKE)).isEqualTo(4);
+
+        assertThat(coinService.insertedCoinsBalanceInPence()).isZero();
     }
 
     @Test

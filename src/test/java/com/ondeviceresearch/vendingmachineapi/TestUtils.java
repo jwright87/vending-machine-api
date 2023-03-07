@@ -7,6 +7,7 @@ import com.ondeviceresearch.vendingmachineapi.config.VendingMachineConfig;
 import com.ondeviceresearch.vendingmachineapi.datastore.VendingMachineDataStore;
 import com.ondeviceresearch.vendingmachineapi.drinks.DrinksService;
 import com.ondeviceresearch.vendingmachineapi.drinks.model.Drink;
+import com.ondeviceresearch.vendingmachineapi.vendingmachine.VendingMachineController;
 
 /**
  * Convenience static Methods/Values
@@ -28,16 +29,26 @@ public class TestUtils {
         return VendingMachineConfig.createFromConfigFile();
     }
 
+    public static VendingMachineController vendingMachineController() {
+        return new VendingMachineController(vendingMachineDataStore(),
+                drinksService(), coinService());
+    }
+
     public static VendingMachineDataStore vendingMachineDataStore() {
-        return new VendingMachineDataStore(config());
+        return new VendingMachineDataStore(config(),new CoinList());
     }
 
     public static CoinService coinService() {
-        return new CoinService(vendingMachineDataStore(), new CoinList());
+        return new CoinService(vendingMachineDataStore(), new CoinList(), config());
     }
 
     public static DrinksService drinksService() {
         return new DrinksService(vendingMachineDataStore(), config(), coinService());
+
+    }
+
+    public static DrinksService drinksService(CoinService coinService) {
+        return new DrinksService(vendingMachineDataStore(), config(), coinService);
 
     }
 }

@@ -1,8 +1,8 @@
-package com.ondeviceresearch.vendingmachineapi.admin;
+package com.ondeviceresearch.vendingmachineapi.vendingmachine;
 
 import com.ondeviceresearch.vendingmachineapi.model.ApiResponse;
 
-public record AdminResetResponse(String message) implements ApiResponse {
+public record ResetResponse(String message) implements ApiResponse {
 
     @Override
     public String getMessage() {

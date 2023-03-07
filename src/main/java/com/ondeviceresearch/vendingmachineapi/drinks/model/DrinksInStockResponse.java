@@ -6,19 +6,17 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class DrinkInfoResponse implements ApiResponse {
+public class DrinksInStockResponse implements ApiResponse {
 
 
-    private List<DrinkStockData> drinkInformation;
-
+    private List<Drink> drinksInStock;
     private String message;
 
 
-    public DrinkInfoResponse(List<DrinkStockData> drinkInformation, String message) {
-        this.drinkInformation = drinkInformation;
+    public DrinksInStockResponse(List<Drink> drinksInStock, String message) {
+        this.drinksInStock = drinksInStock;
         this.message = message;
     }
-
 
     @Override
     public String getMessage() {

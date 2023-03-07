@@ -40,4 +40,17 @@ class VendingMachineConfigTest {
         );
     }
 
+    @Test
+    void shouldEnrichCoin() {
+        var coin = new Coin("FIVE_PENCE",55);
+        coin = dataModel.enrich(coin);
+        assertThat(coin.valueInPence()).isEqualTo(5);
+    }
+
+    @Test
+    void shouldEnrichDrink() {
+        var drink = new Drink("Coke",110);
+        drink = dataModel.enrich(drink);
+        assertThat(drink.cost()).isEqualTo(65);
+    }
 }

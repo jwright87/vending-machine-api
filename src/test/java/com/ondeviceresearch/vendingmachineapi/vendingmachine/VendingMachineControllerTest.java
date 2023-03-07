@@ -1,4 +1,4 @@
-package com.ondeviceresearch.vendingmachineapi.admin;
+package com.ondeviceresearch.vendingmachineapi.vendingmachine;
 
 import com.ondeviceresearch.vendingmachineapi.TestUtils;
 import com.ondeviceresearch.vendingmachineapi.datastore.VendingMachineDataStore;
@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AdminControllerTest {
+class VendingMachineControllerTest {
 
     VendingMachineDataStore dataStore = TestUtils.vendingMachineDataStore();
-    private AdminController controller = new AdminController(dataStore);
+    private VendingMachineController controller = TestUtils.vendingMachineController();
 
     @Test
     void shouldReset() {

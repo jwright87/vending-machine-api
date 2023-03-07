@@ -13,7 +13,7 @@ class CoinServiceTest {
 
     private VendingMachineDataStore dataStore = TestUtils.vendingMachineDataStore();
     private CoinService coinService = new CoinService(
-            dataStore, new CoinList());
+            dataStore,new CoinList(),TestUtils.config());
 
     @Test
     void shouldInsertCoinAndReturnCorrectBalance() {
